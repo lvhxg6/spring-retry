@@ -250,7 +250,7 @@ public class RetryTemplate implements RetryOperations {
 	protected <T, E extends Throwable> T doExecute(RetryCallback<T, E> retryCallback,
 			RecoveryCallback<T> recoveryCallback, RetryState state)
 			throws E, ExhaustedRetryException {
-
+		logger.debug("@@@@@@RetryTemplate  进行到doExecute方法......");
 		RetryPolicy retryPolicy = this.retryPolicy;
 		BackOffPolicy backOffPolicy = this.backOffPolicy;
 

@@ -26,6 +26,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.PostConstruct;
 
 import org.aopalliance.aop.Advice;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.ClassFilter;
 import org.springframework.aop.IntroductionAdvisor;
 import org.springframework.aop.MethodMatcher;
@@ -65,6 +67,9 @@ import org.springframework.util.ReflectionUtils.MethodCallback;
 public class RetryConfiguration extends AbstractPointcutAdvisor
 		implements IntroductionAdvisor, BeanFactoryAware {
 
+	private static final Log logger = LogFactory
+			.getLog(AnnotationAwareRetryOperationsInterceptor.class);
+
 	private Advice advice;
 
 	private Pointcut pointcut;
@@ -88,6 +93,7 @@ public class RetryConfiguration extends AbstractPointcutAdvisor
 
 	@PostConstruct
 	public void init() {
+		logger.debug("@@@@@@RetryConfiguration开始初始化 init......");
 		Set<Class<? extends Annotation>> retryableAnnotationTypes = new LinkedHashSet<Class<? extends Annotation>>(
 				1);
 		retryableAnnotationTypes.add(Retryable.class);
@@ -131,6 +137,7 @@ public class RetryConfiguration extends AbstractPointcutAdvisor
 	}
 
 	protected Advice buildAdvice() {
+
 		AnnotationAwareRetryOperationsInterceptor interceptor = new AnnotationAwareRetryOperationsInterceptor();
 		if (retryContextCache != null) {
 			interceptor.setRetryContextCache(retryContextCache);
@@ -147,6 +154,7 @@ public class RetryConfiguration extends AbstractPointcutAdvisor
 		if (sleeper != null) {
 			interceptor.setSleeper(sleeper);
 		}
+		logger.debug("@@@@@@RetryConfiguration开始初始化 buildAdvice......");
 		return interceptor;
 	}
 
@@ -167,6 +175,7 @@ public class RetryConfiguration extends AbstractPointcutAdvisor
 				result.union(filter);
 			}
 		}
+		logger.debug("@@@@@@RetryConfiguration开始初始化 buildPointcut......");
 		return result;
 	}
 

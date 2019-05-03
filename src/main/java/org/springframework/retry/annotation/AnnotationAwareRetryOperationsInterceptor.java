@@ -27,6 +27,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.IntroductionInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -75,6 +77,13 @@ import org.springframework.util.StringUtils;
 public class AnnotationAwareRetryOperationsInterceptor
 		implements IntroductionInterceptor, BeanFactoryAware {
 
+	private static final Log logger = LogFactory
+			.getLog(AnnotationAwareRetryOperationsInterceptor.class);
+
+	static {
+		logger.debug("@@@@@@@@@@@@AnnotationAwareRetryOperationsInterceptor开始加载了......");
+	}
+
 	private static final TemplateParserContext PARSER_CONTEXT = new TemplateParserContext();
 
 	private static final SpelExpressionParser PARSER = new SpelExpressionParser();
@@ -100,6 +109,8 @@ public class AnnotationAwareRetryOperationsInterceptor
 	 */
 	public void setSleeper(Sleeper sleeper) {
 		this.sleeper = sleeper;
+		logger.debug(
+				"@@@@@@@@@@@@AnnotationAwareRetryOperationsInterceptor开始加载了    setSleeper......");
 	}
 
 	/**
@@ -107,6 +118,8 @@ public class AnnotationAwareRetryOperationsInterceptor
 	 * @param retryContextCache the {@link RetryContextCache} to set.
 	 */
 	public void setRetryContextCache(RetryContextCache retryContextCache) {
+		logger.debug(
+				"@@@@@@@@@@@@AnnotationAwareRetryOperationsInterceptor开始加载了    setRetryContextCache......");
 		this.retryContextCache = retryContextCache;
 	}
 
@@ -115,6 +128,8 @@ public class AnnotationAwareRetryOperationsInterceptor
 	 */
 	public void setKeyGenerator(MethodArgumentsKeyGenerator methodArgumentsKeyGenerator) {
 		this.methodArgumentsKeyGenerator = methodArgumentsKeyGenerator;
+		logger.debug(
+				"@@@@@@@@@@@@AnnotationAwareRetryOperationsInterceptor开始加载了    setKeyGenerator......");
 	}
 
 	/**
@@ -123,6 +138,8 @@ public class AnnotationAwareRetryOperationsInterceptor
 	public void setNewItemIdentifier(
 			NewMethodArgumentsIdentifier newMethodArgumentsIdentifier) {
 		this.newMethodArgumentsIdentifier = newMethodArgumentsIdentifier;
+		logger.debug(
+				"@@@@@@@@@@@@AnnotationAwareRetryOperationsInterceptor开始加载了    setNewItemIdentifier......");
 	}
 
 	/**
@@ -134,6 +151,8 @@ public class AnnotationAwareRetryOperationsInterceptor
 				globalListeners);
 		AnnotationAwareOrderComparator.sort(retryListeners);
 		this.globalListeners = retryListeners.toArray(new RetryListener[0]);
+		logger.debug(
+				"@@@@@@@@@@@@AnnotationAwareRetryOperationsInterceptor开始加载了    setListeners......");
 	}
 
 	@Override
@@ -152,15 +171,25 @@ public class AnnotationAwareRetryOperationsInterceptor
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		MethodInterceptor delegate = getDelegate(invocation.getThis(),
 				invocation.getMethod());
+		logger.debug(
+				"@@@@@@AnnotationAwareRetryOperationsInterceptor  进行到  invoke，delegate:"
+						+ delegate);
 		if (delegate != null) {
+			logger.debug(
+					"@@@@@@AnnotationAwareRetryOperationsInterceptor  进行到  invoke，delegate!=null......");
 			return delegate.invoke(invocation);
 		}
 		else {
+			logger.debug(
+					"@@@@@@AnnotationAwareRetryOperationsInterceptor  进行到  invoke，delegate=null......");
 			return invocation.proceed();
 		}
 	}
 
 	private MethodInterceptor getDelegate(Object target, Method method) {
+		logger.debug(
+				"@@@@@@AnnotationAwareRetryOperationsInterceptor  进行到  getDelegate，target:"
+						+ target + ",method:" + method.getName());
 		if (!this.delegates.containsKey(target)
 				|| !this.delegates.get(target).containsKey(method)) {
 			synchronized (this.delegates) {

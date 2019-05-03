@@ -148,7 +148,7 @@ public class StatefulRetryOperationsInterceptor implements MethodInterceptor {
 	 */
 	@Override
 	public Object invoke(final MethodInvocation invocation) throws Throwable {
-
+		logger.debug("@@@@@@StatefulRetryOperationsInterceptor  进行到  invoke()方法 ......");
 		if (this.logger.isDebugEnabled()) {
 			this.logger.debug("Executing proxied method in stateful retry: "
 					+ invocation.getStaticPart() + "("
@@ -172,7 +172,8 @@ public class StatefulRetryOperationsInterceptor implements MethodInterceptor {
 						this.recoverer != null
 								? new ItemRecovererCallback(args, this.recoverer) : null,
 						retryState);
-
+		logger.debug(
+				"@@@@@@StatefulRetryOperationsInterceptor  进行到  this.retryOperations.execute()方法  结束......");
 		if (this.logger.isDebugEnabled()) {
 			this.logger.debug("Exiting proxied method in stateful retry with result: ("
 					+ result + ")");
@@ -210,6 +211,7 @@ public class StatefulRetryOperationsInterceptor implements MethodInterceptor {
 		private StatefulMethodInvocationRetryCallback(MethodInvocation invocation,
 				String label) {
 			super(invocation, label);
+
 		}
 
 		@Override
