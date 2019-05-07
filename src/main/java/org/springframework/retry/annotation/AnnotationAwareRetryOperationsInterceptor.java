@@ -143,7 +143,7 @@ public class AnnotationAwareRetryOperationsInterceptor
 	}
 
 	/**
-	 * Default retry listeners to apply to all operations.
+	 * Default retry listeners to apply to all operations.，
 	 * @param globalListeners the default listeners
 	 */
 	public void setListeners(Collection<RetryListener> globalListeners) {
