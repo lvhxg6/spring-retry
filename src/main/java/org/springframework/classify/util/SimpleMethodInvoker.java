@@ -32,6 +32,9 @@ import org.springframework.util.ClassUtils;
  * @author Lucas Ward
  * @author Artem Bilan
  * @since 1.1
+ *
+ * 注释： 一个存储对象、方法、参数的对象，实现了MethodInvoker接口 invokeMethod(Object... args)方法，传入参数进行反射调用
+ *
  */
 public class SimpleMethodInvoker implements MethodInvoker {
 
@@ -73,11 +76,10 @@ public class SimpleMethodInvoker implements MethodInvoker {
 		this.parameterTypes = method.getParameterTypes();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.springframework.batch.core.configuration.util.MethodInvoker#invokeMethod
-	 * (java.lang.Object[])
+	/**
+	 * 反射调用方法
+	 * @param args
+	 * @return
 	 */
 	@Override
 	public Object invokeMethod(Object... args) {
@@ -88,6 +90,9 @@ public class SimpleMethodInvoker implements MethodInvoker {
 		try {
 			// Extract the target from an Advised as late as possible
 			// in case it contains a lazy initialization
+			/**
+			 * 获取代理对象代理之前的对象
+			 */
 			Object target = extractTarget(this.object, this.method);
 			return method.invoke(target, args);
 		}
@@ -98,6 +103,12 @@ public class SimpleMethodInvoker implements MethodInvoker {
 		}
 	}
 
+	/**
+	 * 采用递归的方式，获取代理对象代理的原始对象
+	 * @param target
+	 * @param method
+	 * @return
+	 */
 	private Object extractTarget(Object target, Method method) {
 		if (this.target == null) {
 			if (target instanceof Advised) {

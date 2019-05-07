@@ -40,6 +40,9 @@ public class ExceptionClassifierRetryPolicy implements RetryPolicy {
 	private Classifier<Throwable, RetryPolicy> exceptionClassifier = new ClassifierSupport<Throwable, RetryPolicy>(
 			new NeverRetryPolicy());
 
+	public ExceptionClassifierRetryPolicy() {
+	}
+
 	/**
 	 * Setter for policy map used to create a classifier. Either this property or the
 	 * exception classifier directly should be set, but not both.
@@ -109,6 +112,10 @@ public class ExceptionClassifierRetryPolicy implements RetryPolicy {
 			implements RetryPolicy {
 
 		final private Classifier<Throwable, RetryPolicy> exceptionClassifier;
+
+		public ExceptionClassifierRetryContext() {
+			exceptionClassifier = null;
+		}
 
 		// Dynamic: depends on the latest exception:
 		private RetryPolicy policy;

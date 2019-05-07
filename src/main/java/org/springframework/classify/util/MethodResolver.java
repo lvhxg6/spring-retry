@@ -22,6 +22,9 @@ import java.lang.reflect.Method;
  * Strategy interface for detecting a single Method on a Class.
  *
  * @author Mark Fisher
+ *
+ * 注释：策略接口 从class中查找一个单一方法
+ *
  */
 public interface MethodResolver {
 

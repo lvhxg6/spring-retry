@@ -29,6 +29,10 @@ public class RetryContextSupport extends AttributeAccessorSupport
 
 	private final RetryContext parent;
 
+	public RetryContextSupport() {
+		parent = null;
+	}
+
 	private volatile boolean terminate = false;
 
 	private volatile int count;

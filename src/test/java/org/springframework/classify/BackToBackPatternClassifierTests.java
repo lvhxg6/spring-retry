@@ -27,7 +27,7 @@ import org.springframework.classify.annotation.Classifier;
 
 /**
  * @author Dave Syer
- * 
+ *
  */
 public class BackToBackPatternClassifierTests {
 
@@ -39,13 +39,23 @@ public class BackToBackPatternClassifierTests {
 	public void createMap() {
 		map = new HashMap<String, String>();
 		map.put("foo", "bar");
-		map.put("*", "spam");
+		map.put("oo", "spam");
+		map.put("bucket", "spam");
+		// map.put("*", "spam");
 	}
 
+	/**
+	 * @Test(expected = NullPointerException.class) 测试期待一个空指针异常，有，则通过测试
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testNoClassifiers() {
 		classifier.classify("foo");
 	}
+
+	// @Test
+	// public void myTestNoClassifiers() {
+	// classifier.classify("foo");
+	// }
 
 	@Test
 	public void testCreateFromConstructor() {
@@ -56,6 +66,9 @@ public class BackToBackPatternClassifierTests {
 		assertEquals("spam", classifier.classify("oof"));
 	}
 
+	/**
+	 * 测试输入oof的时候先走@路由代理，返回bucket，然后在matcher中根据key-bucket获取value
+	 */
 	@Test
 	public void testSetRouterDelegate() {
 		classifier.setRouterDelegate(new Object() {

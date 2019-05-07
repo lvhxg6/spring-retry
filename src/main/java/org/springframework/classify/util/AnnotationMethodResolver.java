@@ -33,6 +33,9 @@ import org.springframework.util.ReflectionUtils;
  * that contains the specified annotation type.
  *
  * @author Mark Fisher
+ *
+ * 注释：获取对象中指定注解的方法，且该注解只能使用一次，不能使用两次
+ *
  */
 public class AnnotationMethodResolver implements MethodResolver {
 
@@ -76,6 +79,9 @@ public class AnnotationMethodResolver implements MethodResolver {
 	 * contains no Methods with the specified annotation
 	 * @throws IllegalArgumentException if more than one Method has the specified
 	 * annotation
+	 *
+	 * 获取唯一一个使用了制定注解的方法
+	 *
 	 */
 	public Method findMethod(final Class<?> clazz) {
 		Assert.notNull(clazz, "class must not be null");

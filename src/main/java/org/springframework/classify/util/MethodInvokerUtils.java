@@ -36,7 +36,9 @@ import org.springframework.util.ReflectionUtils;
  * @author Lucas Ward
  * @author Artem Bilan
  * @since 1.1
- * 这是一个注释
+ *
+ * 注释： 获取MethodInvoker的一个工具类
+ *
  */
 public class MethodInvokerUtils {
 
@@ -48,6 +50,9 @@ public class MethodInvokerUtils {
 	 * false, a no args version of the method will be searched for.
 	 * @param paramTypes - parameter types of the method to search for.
 	 * @return MethodInvoker if the method is found, null if it is not.
+	 *
+	 * 注释： 通过对象实例、方法名、方法参数类型获取一个SimpleMethodInvoker对象
+	 *
 	 */
 	public static MethodInvoker getMethodInvokerByName(Object object, String methodName,
 			boolean paramsRequired, Class<?>... paramTypes) {
@@ -163,6 +168,9 @@ public class MethodInvokerUtils {
 	 * @param annotationType to be searched for
 	 * @param target to be invoked
 	 * @return MethodInvoker for the provided annotation, null if none is found.
+	 *
+	 * 注释： 通过@指定注解获取一个对象实例中的方法，并且组装成一个MethodInvoker对象
+	 *
 	 */
 	public static MethodInvoker getMethodInvokerByAnnotation(
 			final Class<? extends Annotation> annotationType, final Object target) {

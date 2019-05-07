@@ -20,6 +20,9 @@ package org.springframework.classify.util;
  * A strategy interface for invoking a method. Typically used by adapters.
  *
  * @author Mark Fisher
+ *
+ * 注释： invokerMethod(Object... args) 根据参数，反射调用
+ *
  */
 public interface MethodInvoker {
 
